@@ -71,7 +71,7 @@ model Porto {
 
 ## 8. Run Database Migrations
 ```
-npx prisma migrate dev --name <migration-name>
+npx prisma migrate dev --name <migration-name(example: porto)>
 ```
 
 ## 9. Install Prisma Client
