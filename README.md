@@ -47,19 +47,25 @@ DATABASE_URL="postgres://<username>:<password>@localhost:<port>/<database>"
 ## 7. Define Your Prisma Schema
 Open the prisma/schema.prisma file and define your data models. For example:
  ```
-model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
-  posts Post[]
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("posts")
 }
 
-model Post {
-  id     Int     @id @default(autoincrement())
-  title  String
-  content String
-  author  User   @relation(fields: [authorId], references: [id])
-  authorId Int
+
+model Porto {
+  id         String   @id @default(uuid()) @db.Uuid
+  title      String   @db.VarChar(255)
+  link       String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("portof") 
 }
 ```
 
