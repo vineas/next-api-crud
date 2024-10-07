@@ -36,7 +36,7 @@ DATABASE_URL="postgres://<username>:<password>@localhost:<port>/<database>"
 
 ## 7. Define Your Prisma Schema
 Open the prisma/schema.prisma file and define your data models. For example:
-
+ ```
 model User {
   id    Int     @id @default(autoincrement())
   name  String
@@ -51,6 +51,7 @@ model Post {
   author  User   @relation(fields: [authorId], references: [id])
   authorId Int
 }
+```
 
 ## 8. Run Database Migrations
 npx prisma migrate dev --name <migration-name>
