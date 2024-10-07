@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js API Project with Prisma ORM
 
-## Getting Started
+This guide outlines the steps for setting up a Next.js API project using Prisma ORM and PostgreSQL. Follow the instructions below to get started.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js installed (v14 or higher)
+- PostgreSQL database set up locally
+- Basic knowledge of Next.js and Prisma
+
+## 1. Create a New Next.js Project
+
+To begin, create a new Next.js project using the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@14.0.4
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. Navigate to the Project Directory
+cd next-api
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 3. Start the Development Server
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 4. Install postgre and prisma
+npm install pg
+npm install pg-hstore
+npm install prisma --save-dev
 
-## Learn More
+## 5. Initialize Prisma in the Project
+npx prisma init
 
-To learn more about Next.js, take a look at the following resources:
+## 6. Configure the Database Connection
+.env
+DATABASE_URL="postgres://<username>:<password>@localhost:<port>/<database>"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 7. Define Your Prisma Schema
+Open the prisma/schema.prisma file and define your data models. For example:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+  posts Post[]
+}
 
-## Deploy on Vercel
+model Post {
+  id     Int     @id @default(autoincrement())
+  title  String
+  content String
+  author  User   @relation(fields: [authorId], references: [id])
+  authorId Int
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 8. Run Database Migrations
+npx prisma migrate dev --name <migration-name>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 9. Install Prisma Client
+npm install @prisma/client
+
+## 10. Configure Prisma Client
+mkdir -p prisma/client
+
+Inside the client folder, create a file named index.js:
+// prisma/client/index.js
+
+```
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export default prisma;
+```
