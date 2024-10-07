@@ -16,6 +16,8 @@ To begin, create a new Next.js project using the following command:
 npx create-next-app@14.0.4
 ```
 
+When prompted, select Yes for using the "src" directory and the App Router (recommended).
+
 ## 2. Navigate to the Project Directory
 ```
 cd next-api
