@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 
 import prisma from "../../../../prisma/client";
 
+
 export async function GET() {
-    const posts = await prisma.post.findMany();
+    const portof = await prisma.porto.findMany();
     return NextResponse.json (
         {
             succes: true,
-            message: "List Data Posts",
-            data: posts
+            message: "List Data porto",
+            data: portof
         },
         {
             status: 200,
@@ -16,21 +17,22 @@ export async function GET() {
     );
 }
 
-export async function POST(request) {
-    const {title, content} = await request.json();
 
-    const post = await prisma.post.create({
+export async function POST(request) {
+    const {title, link} = await request.json();
+
+    const portof = await prisma.porto.create({
         data: {
             title: title,
-            content: content,
+            link: link,
         },
     });
 
     return NextResponse.json(
         {
             succes: true,
-            message: "Post Created Successfully!",
-            data: post
+            message: "Porto Created",
+            data: portof
         },
         {
             status: 201

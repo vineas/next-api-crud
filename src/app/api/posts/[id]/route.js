@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import prisma from "../../../../../prisma/client";
 
+// DETAIL
 export async function GET(request, { params }) {
   const id = parseInt(params.id);
 
@@ -34,6 +35,8 @@ export async function GET(request, { params }) {
   );
 }
 
+
+// UPDATE
 export async function PATCH(request, { params }) {
   const id = parseInt(params.id);
   const { title, content } = await request.json();
@@ -60,6 +63,7 @@ export async function PATCH(request, { params }) {
 }
 
 
+// DELETE
 export async function DELETE(request, {params}){
   const id = parseInt(params.id);
 
